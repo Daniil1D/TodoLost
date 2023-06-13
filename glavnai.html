@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Todo App</title>
+
+</head>
+</head>
+<body>
+    <div id="root" role="main" class="container">
+      <div class="todo-app">
+        <div class="app-header d-flex">
+          <h1>Todo List</h1>
+          <h2>1 more to do, 3 done</h2>
+        </div>
+        <div class="top-panel d-flex">
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="type to search"
+          />
+          <div class="btn-group">
+            <button type="button" class="btn btn-info">All</button
+            ><button type="button" class="btn btn-outline-secondary">
+              Active</button
+            ><button type="button" class="btn btn-outline-secondary">
+              Done
+            </button>
+          </div>
+        </div>
+        <ul class="list-group todo-list">
+          <li class="list-group-item">
+            <span class="todo-list-item"
+              ><span
+                class="todo-list-item-label"
+                style="color: black; font-weight: normal"
+                >Drink Coffee</span
+              ><button
+                type="button"
+                class="btn btn-outline-success btn-sm float-right"
+              >
+                <i class="fa fa-exclamation"></i></button
+              ><button
+                type="button"
+                class="btn btn-outline-danger btn-sm float-right"
+              >
+                <i class="fa fa-trash-o"></i></button
+            ></span>
+          </li>
+          <li class="list-group-item">
+            <span class="todo-list-item"
+              ><span
+                class="todo-list-item-label"
+                style="color: steelblue; font-weight: bold"
+                >Make Awesome App</span
+              ><button
+                type="button"
+                class="btn btn-outline-success btn-sm float-right"
+              >
+                <i class="fa fa-exclamation"></i></button
+              ><button
+                type="button"
+                class="btn btn-outline-danger btn-sm float-right"
+              >
+                <i class="fa fa-trash-o"></i></button
+            ></span>
+          </li>
+          <li class="list-group-item">
+            <span class="todo-list-item"
+              ><span
+                class="todo-list-item-label"
+                style="color: black; font-weight: normal"
+                >Have a lunch</span
+              ><button
+                type="button"
+                class="btn btn-outline-success btn-sm float-right"
+              >
+                <i class="fa fa-exclamation"></i></button
+              ><button
+                type="button"
+                class="btn btn-outline-danger btn-sm float-right"
+              >
+                <i class="fa fa-trash-o"></i></button
+            ></span>
+          </li>
+        </ul>
+        <form class="bottom-panel d-flex"><input type="text" class="form-control new-todo-label" placeholder="What needs to be done?" value=""><button type="submit" class="btn btn-outline-secondary">Add</button></form>
+      </div>
+    </div>    
+</body>
+</html>
