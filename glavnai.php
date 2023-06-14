@@ -64,13 +64,13 @@ $result = mysqli_query($link, $selectQuery);
         <tbody>
           <?php while ($row = mysqli_fetch_assoc($result)):
             $text = $row['text'];
-            $todoId = $row['id'];
+            $id = $row['id'];
           ?>
             <tr>
               <td>
                 <?php
                 // Проверяем, совпадает ли текущий todo с выделенными
-                if (in_array($todoId, $highlightedTodos)) {
+                if (in_array($id, $highlightedTodos)) {
                   echo '<span class="todo-list-item-label" style="color: steelblue; font-weight: bold">';
                 } else {
                   echo '<span class="todo-list-item-label">';
@@ -83,15 +83,15 @@ $result = mysqli_query($link, $selectQuery);
                 <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                   <?php
                   // Создаем новый массив, содержащий только уникальные значения
-                  $newHighlightedTodos = array_unique($highlightedTodos);
+                  $newHighlightedTodos = array_unique($highlightedTodos); //Эта функция удаляет повторяющиеся значения из массива $highlightedTodos, чтобы каждый элемент был уникальным.
 
                   // Проверяем, совпадает ли текущий todo с выделенными
-                  if (in_array($todoId, $highlightedTodos)) {
+                  if (in_array($id, $highlightedTodos)) {
                     // Убираем текущий todo из выделенных
-                    $newHighlightedTodos = array_diff($highlightedTodos, [$todoId]);
+                    $newHighlightedTodos = array_diff($highlightedTodos, [$id]);
                   } else {
                     // Добавляем текущий todo в выделенные
-                    $newHighlightedTodos[] = $todoId;
+                    $newHighlightedTodos[] = $id;
                   }
 
                   // Генерируем скрытые поля с массивом выделенных записей
