@@ -68,41 +68,38 @@ $result = mysqli_query($link, $selectQuery);
           ?>
             <tr>
               <td>
-                <?php
-                // Проверяем, совпадает ли текущий todo с выделенными
-                if (in_array($id, $highlightedTodos)) {
-                  echo '<span class="todo-list-item-label" style="color: steelblue; font-weight: bold">';
-                } else {
-                  echo '<span class="todo-list-item-label">';
-                }
-                ?>
+              <?php if (in_array($id, $highlightedTodos)): ?>
+                <span class="todo-list-item-label" style="color: steelblue; font-weight: bold">
+              <?php else: ?>
+                <span class="todo-list-item-label">
+              <?php endif; ?>
                 <?php echo $text; ?>
                 </span>
               </td>
               <td>
-                <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                  <?php
-                  // Создаем новый массив, содержащий только уникальные значения
-                  $newHighlightedTodos = array_unique($highlightedTodos); //Эта функция удаляет повторяющиеся значения из массива $highlightedTodos, чтобы каждый элемент был уникальным.
+                
+              <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+              <?php
+                // Создаем новый массив, содержащий только уникальные значения
+                $newHighlightedTodos = array_unique($highlightedTodos);
 
-                  // Проверяем, совпадает ли текущий todo с выделенными
-                  if (in_array($id, $highlightedTodos)) {
-                    // Убираем текущий todo из выделенных
-                    $newHighlightedTodos = array_diff($highlightedTodos, [$id]);
-                  } else {
-                    // Добавляем текущий todo в выделенные
-                    $newHighlightedTodos[] = $id;
-                  }
+                // Проверяем, совпадает ли текущий todo с выделенными
+                if (in_array($id, $highlightedTodos)) {
+                  // Убираем текущий todo из выделенных
+                  $newHighlightedTodos = array_diff($highlightedTodos, [$id]);
+                } else {
+                  // Добавляем текущий todo в выделенные
+                  $newHighlightedTodos[] = $id;
+                }
 
-                  // Генерируем скрытые поля с массивом выделенных записей
-                  foreach ($newHighlightedTodos as $highlightedTodo) {
-                    echo '<input type="hidden" name="highlight[]" value="' . $highlightedTodo . '">';
-                  }
-                  ?>
-                  <button type="submit" class="btn btn-outline-success btn-sm float-right">
-                    <i class="fa fa-exclamation"></i>
-                  </button>
-                </form>
+                // Генерируем ссылку с параметрами выделенных записей
+                $params = http_build_query(['highlight' => $newHighlightedTodos]);
+                $url = $_SERVER['PHP_SELF'] . '?' . $params;
+              ?>
+              <a href="<?php echo $url; ?>" class="btn btn-outline-success btn-sm float-right">
+                <i class="fa fa-exclamation"></i>
+              </a>
+            </form>
                 <button type="button" class="btn btn-outline-danger btn-sm float-right">
                   <i class="fa fa-trash-o"></i>
                 </button>
