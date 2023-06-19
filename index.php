@@ -2,53 +2,40 @@
 require_once 'DatabaseConnection.php';
 require_once 'TodoList.php';
 
-$db = new DatabaseConnection('localhost', 'root', '', 'Todo List');
-
-$link = new TodoList($db);
-
+$Db = new DatabaseConnection('localhost', 'root', '', 'Todo list');
+$link = new TodoList($Db);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if (isset($_POST['addTodo'])) {
-    $todo = $_POST['todo'];
-    $link->addTodoItem($todo);
-
-    // Перенаправление на текущую страницу для обновления.
-    header('Location: index.php');
-    exit;
-  }
+    if (isset($_POST['addTodo'])) {
+        $todo = $_POST['todo'];
+        $link->addTodoItem($todo);
+        header('Location: index.php');
+        exit;
+    }
 }
 
-// Обработка GET-запроса на изменение статуса "Done"
 if (isset($_GET['done'])) {
-  $completeTodoId = $_GET['done'];
-  $link->updateTodoStatusToDone($completeTodoId);
-
-  // Перенаправление на текущую страницу для обновления
-  header('Location: ' . $_SERVER['PHP_SELF']);
-  exit;
+    $completeTodoId = $_GET['done'];
+    $link->updateTodoStatusToDone($completeTodoId);
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
 }
 
-// Обработка GET-запроса на изменение статуса "Active"
 if (isset($_GET['active'])) {
-  $undoneTodoId = $_GET['active'];
-  $link->updateTodoStatusToActive($undoneTodoId);
-
-  // Перенаправление на текущую страницу для обновления
-  header('Location: ' . $_SERVER['PHP_SELF']);
-  exit;
+    $undoneTodoId = $_GET['active'];
+    $link->updateTodoStatusToActive($undoneTodoId);
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
 }
 
+$result = $link->findAll();
 
-// Обновление результатов запроса после добавления записи
-$selectQuery = "SELECT * FROM `Todo List`";
-$result = $link->executeQuery($selectQuery);
-
-
-// Получение выделенных записей с статусом "Done"
 $highlightedTodos = array();
-while ($row = mysqli_fetch_assoc($result)) {
-  if ($row['Statusname'] === 'Done') {
-    $highlightedTodos[] = $row['id'];
-  }
+foreach ($result as $row) {
+    if ($row['Statusname'] === 'Done') {
+        $highlightedTodos[] = $row['id'];
+    }
 }
+
 include 'template.php';
+?>
