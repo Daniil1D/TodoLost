@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>Todo</title>
+    <title>Todo List</title>
     <style>
         .active-tab {
             background-color: steelblue;
@@ -34,44 +34,26 @@
 
             <table class="table">
                 <tbody>
-                    <?php if (isset($_GET['tab'])) {
-                        $tab = $_GET['tab'];
-                        if ($tab === 'active') {
-                            $selectQuery = "SELECT * FROM `Todo List` WHERE `Statusname` = 'Active'";
-                        } elseif ($tab === 'done') {
-                            $selectQuery = "SELECT * FROM `Todo List` WHERE `Statusname` = 'Done'";
-                        } else {
-                            $selectQuery = "SELECT * FROM `Todo List`"; //Если параметр tab не существует в GET-запросе, то выбирает все записи из таблицы "Todo List" без фильтрации по статусу.
-                        }
-                    } else {
-                        $selectQuery = "SELECT * FROM `Todo List`";
-                    }
-                    $result = $Db->executeQuery($selectQuery);
-
-                    while ($row = mysqli_fetch_assoc($result)) :
-                        $id = $row['id'];
-                        $text = $row['text'];
-                        $Statusname = $row['Statusname'];
-                    ?>
+                    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                         <tr>
                             <td>
-                                <?php if (is_array($highlightedTodos) && in_array($id, $highlightedTodos)) : ?>
+                                <?php if (is_array($highlightedTodos) && in_array($row['id'], $highlightedTodos)) : ?>
                                     <span class="todo-list-item-label" style="color: steelblue; font-weight: bold">
-                                    <?php else : ?>
-                                        <span class="todo-list-item-label">
-                                        <?php endif; ?>
-                                        <?php echo $text; ?>
-                                        </span>
-                                        <?php if ($Statusname === 'Done') : ?>
-                                            <a href="?active=<?php echo $id; ?>" class="btn btn-outline-success btn-sm float-right">
-                                                <i class="fa fa-exclamation"></i>
-                                            </a>
-                                        <?php else : ?>
-                                            <a href="?done=<?php echo $id; ?>" class="btn btn-outline-secondary btn-sm float-right">
-                                                <i class="fa fa-exclamation"></i>
-                                            </a>
-                                        <?php endif; ?>
-                                        <a href="?delete=<?php echo $id; ?>" class="btn btn-outline-danger btn-sm float-right mr-2"><i class="fa fa-trash"></i></a>
+                                <?php else : ?>
+                                    <span class="todo-list-item-label">
+                                <?php endif; ?>
+                                    <?php echo $row['text']; ?>
+                                </span>
+                                <?php if ($row['Statusname'] === 'Done') : ?>
+                                    <a href="?active=<?php echo $row['id']; ?>" class="btn btn-outline-success btn-sm float-right">
+                                        <i class="fa fa-exclamation"></i>
+                                    </a>
+                                <?php else : ?>
+                                    <a href="?done=<?php echo $row['id']; ?>" class="btn btn-outline-secondary btn-sm float-right">
+                                        <i class="fa fa-exclamation"></i>
+                                    </a>
+                                <?php endif; ?>
+                                <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm float-right mr-2"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endwhile; ?>

@@ -8,6 +8,11 @@ class TodoList
         $this->Db = $Db;
     }
 
+    public function getDb()
+    {
+        return $this->Db;
+    }
+
     public function findAll()
     {
         $selectQuery = "SELECT * FROM `Todo List`";
