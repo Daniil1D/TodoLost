@@ -34,19 +34,8 @@
 
             <table class="table">
                 <tbody>
-                    <?php if (isset($_GET['tab'])) {
-                        $tab = $_GET['tab'];
-                        if ($tab === 'active') {
-                            $selectQuery = "SELECT * FROM `Todo List` WHERE `Statusname` = 'Active'";
-                        } elseif ($tab === 'done') {
-                            $selectQuery = "SELECT * FROM `Todo List` WHERE `Statusname` = 'Done'";
-                        } else {
-                            $selectQuery = "SELECT * FROM `Todo List`"; //Если параметр tab не существует в GET-запросе, то выбирает все записи из таблицы "Todo List" без фильтрации по статусу.
-                        }
-                    } else {
-                        $selectQuery = "SELECT * FROM `Todo List`";
-                    }
-                    $result = $Db->executeQuery($selectQuery);
+                    <?php
+                     $result = $controller->findAll();
 
                     while ($row = mysqli_fetch_assoc($result)) :
                         $id = $row['id'];

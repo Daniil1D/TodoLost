@@ -40,4 +40,5 @@ class TodoList
         $query = "UPDATE `Todo List` SET `Statusname` = 'Active' WHERE `id` = $id";
         $this->Db->executeQuery($query);
     }
+    
 }
