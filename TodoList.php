@@ -17,10 +17,14 @@ class TodoList
     {
         $selectQuery = "SELECT * FROM `Todo List`";
         $result = $this->Db->executeQuery($selectQuery);
-        return $result;
+        $todos = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $todos[] = $row;
+        }
+        return $todos;
     }
 
-    // метод используется для добавления новой задачи в список дел.
+    // Метод используется для добавления новой задачи в список дел.
     public function addTodoItem($todo)
     {
         $todo = mysqli_real_escape_string($this->Db->getLink(), $todo);
@@ -30,19 +34,13 @@ class TodoList
         $this->Db->executeQuery($insertQuery);
     }
 
-    // метод используется для обновления статуса задачи на "Done"
-    public function updateTodoStatusToDone($id)
+    // Метод используется для обновления статуса задачи на "Done" или "Active".
+    public function updateTodoStatus($id, $status)
     {
-        // SQL-запрос для обновления статуса задачи на "Done"
-        $query = "UPDATE `Todo List` SET `Statusname` = 'Done' WHERE `id` = $id";
-        $this->Db->executeQuery($query);
-    }
+        $status = mysqli_real_escape_string($this->Db->getLink(), $status);
 
-    // метод используется для обновления статуса задачи на Active
-    public function updateTodoStatusToActive($id)
-    {
-        // SQL-запрос для обновления статуса задачи на "Active"
-        $query = "UPDATE `Todo List` SET `Statusname` = 'Active' WHERE `id` = $id";
+        // SQL-запрос для обновления статуса задачи
+        $query = "UPDATE `Todo List` SET `Statusname` = '$status' WHERE `id` = $id";
         $this->Db->executeQuery($query);
     }
 
@@ -52,4 +50,79 @@ class TodoList
         $query = "DELETE FROM `Todo List` WHERE `id` = $id";
         $this->Db->executeQuery($query);
     }
+
+    // Метод для определения SQL-запроса на основе значения параметра "tab"
+    public function getSelectQuery($tab)
+    {
+        if ($tab === 'active') {
+            return "SELECT * FROM `Todo List` WHERE `Statusname` = 'Active'";
+        } elseif ($tab === 'done') {
+            return "SELECT * FROM `Todo List` WHERE `Statusname` = 'Done'";
+        } else {
+            return "SELECT * FROM `Todo List`";
+        }
+    }
+
+    // Метод для обработки POST-запроса на добавление новой задачи
+    public function handleAddTodo()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['addTodo'])) {
+                $todo = $_POST['todo'];
+                $this->addTodoItem($todo);
+                header('Location: index.php');
+                exit;
+            }
+        }
+    }
+
+    // Метод для обработки GET-запроса на обновление статуса задачи или удаление задачи
+    public function handleTodoStatusUpdate()
+    {
+        if (isset($_GET['done'])) {
+            $todoId = $_GET['done'];
+            $this->updateTodoStatus($todoId, 'Done');
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit;
+        }
+
+        if (isset($_GET['active'])) {
+            $todoId = $_GET['active'];
+            $this->updateTodoStatus($todoId, 'Active');
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit;
+        }
+    }
+
+    public function handleTodoDeletion()
+    {
+        if (isset($_GET['delete'])) {
+            $todoId = $_GET['delete'];
+            $this->deleteTodoItem($todoId);
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit;
+        }
+    }
+
+    // Метод для получения количества активных задач
+    public function getActiveTodoCount()
+    {
+        $selectActiveQuery = "SELECT COUNT(*) AS count FROM `Todo List` WHERE `Statusname` = 'Active'";
+        $resultActive = $this->Db->executeQuery($selectActiveQuery);
+        $rowActive = mysqli_fetch_assoc($resultActive);
+        $countActive = $rowActive['count'];
+        return $countActive;
+    }
+
+    // Метод для выделения выполненных задач
+    public function getHighlightedTodos($todos)
+    {
+        $highlightedTodos = array();
+        foreach ($todos as $row) {
+            if ($row['Statusname'] === 'Done') {
+                $highlightedTodos[] = $row['id'];
+            }
+        }
+        return $highlightedTodos;
+    }    
 }

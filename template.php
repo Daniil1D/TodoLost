@@ -21,7 +21,7 @@
         <div class="todo-app">
             <div class="app-header d-flex">
                 <h1>Todo List</h1>
-                <h2>1 more to do, 3 done</h2>
+                <h2><?php echo $this->countActiveTodos($db); ?> more to do, <?php echo count($highlightedTodos); ?> done</h2>
             </div>
             <div class="top-panel d-flex">
                 <input type="text" class="form-control search-input" placeholder="type to search" />
