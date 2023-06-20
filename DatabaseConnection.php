@@ -13,7 +13,7 @@ class DatabaseConnection
     {
         return $this->link;
     }
-    //выполняет переданный SQL-запрос ($query) с использованием функции mysqli_query. Результат выполнения запроса возвращается.
+    //выполняет переданный SQL-запрос ($query) с использованием функции mysqli_query. Результат выполнения запроса возвращается
     public function executeQuery($query)
     {
         return mysqli_query($this->link, $query);

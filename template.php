@@ -39,21 +39,23 @@
                             <td>
                                 <?php if (is_array($highlightedTodos) && in_array($row['id'], $highlightedTodos)) : ?>
                                     <span class="todo-list-item-label" style="color: steelblue; font-weight: bold">
-                                <?php else : ?>
-                                    <span class="todo-list-item-label">
-                                <?php endif; ?>
-                                    <?php echo $row['text']; ?>
-                                </span>
-                                <?php if ($row['Statusname'] === 'Done') : ?>
-                                    <a href="?active=<?php echo $row['id']; ?>" class="btn btn-outline-success btn-sm float-right">
-                                        <i class="fa fa-exclamation"></i>
-                                    </a>
-                                <?php else : ?>
-                                    <a href="?done=<?php echo $row['id']; ?>" class="btn btn-outline-secondary btn-sm float-right">
-                                        <i class="fa fa-exclamation"></i>
-                                    </a>
-                                <?php endif; ?>
-                                <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm float-right mr-2"><i class="fa fa-trash"></i></a>
+                                    <?php else : ?>
+                                        <span class="todo-list-item-label">
+                                        <?php endif; ?>
+                                        <?php echo $row['text']; ?>
+                                        </span>
+                                        <?php if ($row['Statusname'] === 'Done') : ?>
+                                            <a href="?active=<?php echo $row['id']; ?>" class="btn btn-outline-success btn-sm float-right">
+                                                <i class="fa fa-exclamation"></i>
+                                            </a>
+                                        <?php else : ?>
+                                            <a href="?done=<?php echo $row['id']; ?>" class="btn btn-outline-secondary btn-sm float-right">
+                                                <i class="fa fa-exclamation"></i>
+                                            </a>
+                                        <?php endif; ?>
+                                        <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm float-right mr-2">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                             </td>
                         </tr>
                     <?php endwhile; ?>

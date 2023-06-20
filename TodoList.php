@@ -38,11 +38,18 @@ class TodoList
         $this->Db->executeQuery($query);
     }
 
-    // метод используется для обновления статуса задачи на "Active"
+    // метод используется для обновления статуса задачи на Active
     public function updateTodoStatusToActive($id)
     {
         // SQL-запрос для обновления статуса задачи на "Active"
         $query = "UPDATE `Todo List` SET `Statusname` = 'Active' WHERE `id` = $id";
+        $this->Db->executeQuery($query);
+    }
+
+    public function deleteTodoItem($id)
+    {
+        // SQL-запрос для удаления задачи
+        $query = "DELETE FROM `Todo List` WHERE `id` = $id";
         $this->Db->executeQuery($query);
     }
 }
