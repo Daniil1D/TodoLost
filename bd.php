@@ -1,3 +1,3 @@
 <?php
-$link = mysqli_connect('localhost', 'root', '', 'TodoList');
+$link = mysqli_connect('localhost', 'root', '', 'Todo List');
 ?>
