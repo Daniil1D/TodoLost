@@ -1,6 +1,13 @@
 <?php
+interface DatabaseConnectionInterface
+{
+    public function getLink();
+    public function executeQuery($query);
+    public function getLastInsertedId();
+    public function closeConnection();
+}
 
-class DatabaseConnection
+class DatabaseConnection implements DatabaseConnectionInterface
 {
     protected $link;
 

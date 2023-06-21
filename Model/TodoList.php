@@ -1,6 +1,22 @@
 <?php
+interface TodoListInterface
+{
+    public function getDb();
+    public function findAll();
+    public function addTodoItem($todo);
+    public function updateTodoStatus($id, $status);
+    public function deleteTodoItem($id);
+    public function getSelectQuery($tab);
+    public function handleAddTodo();
+    public function handleTodoStatusUpdate();
+    public function handleTodoDeletion();
+    public function getActiveTodoCount();
+    public function getHighlightedTodos($todos);
+    public function isActiveTab($tabName);
+    public function countActiveTodos($Db);
+}
 
-class TodoList
+class TodoList implements TodoListInterface
 {
     private $Db;
 

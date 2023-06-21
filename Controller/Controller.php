@@ -1,14 +1,20 @@
 <?php
+interface ControllerInterface
+{
+    public function handleRequest();
+}
 
-class Controller
+class Controller implements ControllerInterface
 {
     private $model;
     private $view;
+    private $Db;
 
-    public function __construct($model, $view)
+    public function __construct($model, $view, $Db)
     {
         $this->model = $model;
         $this->view = $view;
+        $this->Db = $Db;
     }
 
     public function handleRequest()
