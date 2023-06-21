@@ -1,4 +1,5 @@
 <?php
+
 class TodoList
 {
     private $Db;
@@ -125,4 +126,20 @@ class TodoList
         }
         return $highlightedTodos;
     }    
+
+    public function isActiveTab($tabName)
+    {
+        if (isset($_GET['tab']) && $_GET['tab'] === $tabName) {
+            return 'active-tab';
+        }
+        return '';
+    }
+
+    public function countActiveTodos($Db)
+    {
+        $selectActiveQuery = "SELECT COUNT(*) AS count FROM `Todo List` WHERE `Statusname` = 'Active'";
+        $resultActive = $Db->executeQuery($selectActiveQuery);
+        $rowActive = mysqli_fetch_assoc($resultActive);
+        return $rowActive['count'];
+    }
 }

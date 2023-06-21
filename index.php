@@ -1,8 +1,8 @@
 <?php
-require_once 'DatabaseConnection.php';
-require_once 'TodoList.php';
-require_once 'Controller.php';
-require_once 'View.php';
+require_once 'Model/DatabaseConnection.php';
+require_once 'Model/TodoList.php';
+require_once 'Controller/Controller.php';
+require_once 'View/View.php';
 
 
 $Db = new DatabaseConnection('localhost', 'root', '', 'Todo list');
