@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 14 2023 г., 09:14
+-- Время создания: Июн 22 2023 г., 09:53
 -- Версия сервера: 8.0.30
 -- Версия PHP: 7.2.34
 
@@ -58,10 +58,28 @@ CREATE TABLE `Todo List` (
 --
 
 INSERT INTO `Todo List` (`id`, `text`, `Statusname`, `active_from`, `active_to`) VALUES
-(1, 'Drink Coffee', '', '', ''),
-(2, 'Make Awesome App', '', '', ''),
-(19, 'Have a lunch', '', '', ''),
-(32, 'q', '', '', '');
+(82, 'Have a lunch', 'Active', '', ''),
+(83, 'Drink Coffe', 'Active', '', ''),
+(84, 'Make Awesome App', 'Active', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `user`
+--
+
+CREATE TABLE `user` (
+  `id` int NOT NULL,
+  `login` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `user`
+--
+
+INSERT INTO `user` (`id`, `login`, `password`) VALUES
+(5, '123', '202cb962ac59075b964b07152d234b70');
 
 --
 -- Индексы сохранённых таблиц
@@ -80,6 +98,12 @@ ALTER TABLE `Todo List`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -93,7 +117,13 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT для таблицы `Todo List`
 --
 ALTER TABLE `Todo List`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+
+--
+-- AUTO_INCREMENT для таблицы `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
