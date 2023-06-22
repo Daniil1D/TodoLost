@@ -6,8 +6,14 @@ interface ViewInterface
 
 class View implements ViewInterface
 {
+    private $registrationCompleted = false;
+
     public function render($result, $highlightedTodos, $activeTodoCount)
     {
-        include 'template.php';
+        if ($this->registrationCompleted) {
+            include 'template.php';
+        } else {
+            include 'RegistrationTemplate.php';
+        }
     }
 }

@@ -141,7 +141,7 @@ class TodoList implements TodoListInterface
             }
         }
         return $highlightedTodos;
-    }    
+    }
 
     public function isActiveTab($tabName)
     {
@@ -158,4 +158,29 @@ class TodoList implements TodoListInterface
         $rowActive = mysqli_fetch_assoc($resultActive);
         return $rowActive['count'];
     }
+
+    public function addUser($login, $password)
+    {
+        // Проверяем, существует ли пользователь с таким логином
+        $checkQuery = "SELECT * FROM `user` WHERE `login` = '$login'";
+        $checkResult = mysqli_query($this->Db->getLink(), $checkQuery);
+
+        // Если найдены строки с указанным логином, значит пользователь уже существует
+        if (mysqli_num_rows($checkResult) > 0) {
+
+            header("Location: userr.php");
+            exit;
+        } else {
+            $hashedPassword = md5($password); // Используем функцию md5() для хеширования пароля
+
+            // SQL-запрос для вставки новой записи в таблицу user
+            $query = "INSERT INTO `user` (`id`, `login`, `password`) VALUES (NULL, '$login', '$hashedPassword');";
+            mysqli_query($this->Db->getLink(), $query);
+            echo 'Вы успешно создали пользователя';
+
+            header("Location: template.php");
+            exit;
+        }
+    }
+    
 }
