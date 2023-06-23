@@ -182,5 +182,4 @@ class TodoList implements TodoListInterface
             exit;
         }
     }
-    
 }

@@ -1,22 +1,18 @@
 <?php
-require_once 'View/RegistrationView.php'; 
 
-interface ViewInterface
-{
-    public function render($result, $highlightedTodos, $activeTodoCount);
-}
-
-class View implements ViewInterface
+class RegistrationView implements ViewInterface
 {
     private $registrationCompleted = false;
 
     public function render($result, $highlightedTodos, $activeTodoCount)
     {
         if ($this->registrationCompleted) {
-            include 'template.php';
-        } else {
             include 'RegistrationTemplate.php';
+        } else {
+            header('Location: template.php');
+            exit;
         }
+       
     }
 
     public function setRegistrationCompleted($completed)

@@ -19,8 +19,12 @@
 <body>
     <div id="root" role="main" class="container">
         <div class="todo-app">
-            <div class="app-header d-flex">
+        <div class="app-header d-flex">
                 <h1>Todo List</h1>
+                <?php
+                $activeTodoCount = isset($activeTodoCount) ? $activeTodoCount : 0;
+                $highlightedTodos = isset($highlightedTodos) ? $highlightedTodos : [];
+                ?>
                 <h2><?php echo $activeTodoCount; ?> more to do, <?php echo count($highlightedTodos); ?> done</h2>
             </div>
             <div class="top-panel d-flex">
@@ -34,7 +38,8 @@
 
             <table class="table">
                 <tbody>
-                    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                <?php if ($result !== null && mysqli_num_rows($result) > 0) : ?>
+                        <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                         <tr>
                             <td>
                                 <?php if (is_array($highlightedTodos) && in_array($row['id'], $highlightedTodos)) : ?>
@@ -58,7 +63,8 @@
                                         </a>
                             </td>
                         </tr>
-                    <?php endwhile; ?>
+                     <?php endwhile; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
             <form class="bottom-panel d-flex" method="POST">

@@ -8,13 +8,11 @@ class Controller implements ControllerInterface
 {
     private $model;
     private $view;
-    private $Db;
 
-    public function __construct($model, $view, $Db)
+    public function __construct($model, $view)
     {
         $this->model = $model;
         $this->view = $view;
-        $this->Db = $Db;
     }
 
     public function handleRequest()
@@ -40,9 +38,7 @@ class Controller implements ControllerInterface
         // Обработка GET-запросов для обновления статуса задачи
         if (isset($_GET['done'])) {
             $this->model->handleTodoStatusUpdate('done');
-        }
-
-        if (isset($_GET['active'])) {
+        } elseif (isset($_GET['active'])) {
             $this->model->handleTodoStatusUpdate('active');
         }
 
@@ -58,19 +54,5 @@ class Controller implements ControllerInterface
         $this->view->render($result, $highlightedTodos, $activeTodoCount);
 
         $isActiveTab = $this->model->isActiveTab($tab);
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $login = $_POST['login'] ?? '';
-            $password = $_POST['password'] ?? '';
-
-            if (!empty($login) && !empty($password)) {
-                $this->model->addUser($login, $password);
-                return;
-            } else {
-                $error = 'Вы не ввели логин или пароль';
-                $this->view->render(['error' => $error]);
-                return;
-            }
-        }
     }
 }
