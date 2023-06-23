@@ -14,7 +14,7 @@
         echo '<p>' . $error . '</p>';
     }
     ?>
-    <form method="POST">
+    <form method="POST" action="?registration">
         <p>Логин:<input type="text" name="login"></p>
         <p>Пароль:<input type="password" name="password"></p>
         <p><input type="submit" name="go" value="Зарегистрироваться"></p>

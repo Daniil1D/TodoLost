@@ -9,8 +9,7 @@ class RegistrationView implements ViewInterface
         if ($this->registrationCompleted) {
             include 'RegistrationTemplate.php';
         } else {
-            header('Location: template.php');
-            exit;
+            include 'Controller.php';
         }
        
     }
