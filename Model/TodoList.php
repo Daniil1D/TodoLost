@@ -87,7 +87,7 @@ class TodoList implements TodoListInterface
             if (isset($_POST['addTodo'])) {
                 $todo = $_POST['todo'];
                 $this->addTodoItem($todo);
-                header('Location: index.php');
+                header('Location: template.php');
                 exit;
             }
         }
@@ -176,9 +176,8 @@ class TodoList implements TodoListInterface
             // SQL-запрос для вставки новой записи в таблицу user
             $query = "INSERT INTO `user` (`id`, `login`, `password`) VALUES (NULL, '$login', '$hashedPassword');";
             mysqli_query($this->Db->getLink(), $query);
-            echo 'Вы успешно создали пользователя';
 
-            header("Location: template.php");
+            header("Location: index.php"); 
             exit;
         }
     }

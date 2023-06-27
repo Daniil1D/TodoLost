@@ -1,5 +1,5 @@
 <?php
-require_once 'View/RegistrationView.php'; 
+
 
 interface ViewInterface
 {

@@ -1,5 +1,5 @@
 <?php
-require_once 'View/RegistrationView.php'; // Добавьте импорт регистрационного представления
+require_once 'View/RegistrationView.php'; 
 
 class RegistrationController implements ControllerInterface
 {

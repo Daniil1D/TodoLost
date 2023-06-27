@@ -54,5 +54,12 @@ class Controller implements ControllerInterface
         $this->view->render($result, $highlightedTodos, $activeTodoCount);
 
         $isActiveTab = $this->model->isActiveTab($tab);
+
+        
     }
 }
+
+
+
+
+
