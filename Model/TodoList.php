@@ -176,9 +176,11 @@ class TodoList implements TodoListInterface
             // SQL-запрос для вставки новой записи в таблицу user
             $query = "INSERT INTO `user` (`id`, `login`, `password`) VALUES (NULL, '$login', '$hashedPassword');";
             mysqli_query($this->Db->getLink(), $query);
-
-            header("Location: index.php"); 
+            setcookie("login", $login, time()+3600);
+            header("Location: index.php");
             exit;
         }
     }
+    
+    
 }

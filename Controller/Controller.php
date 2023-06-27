@@ -50,6 +50,12 @@ class Controller implements ControllerInterface
         $todos = $this->model->findAll();
         $highlightedTodos = $this->model->getHighlightedTodos($todos);
 
+
+
+        if(isset($_COOKIE["login"])){
+            $this->view->setRegistrationCompleted(true);
+        }
+
         // Рендеринг представления с передачей данных
         $this->view->render($result, $highlightedTodos, $activeTodoCount);
 

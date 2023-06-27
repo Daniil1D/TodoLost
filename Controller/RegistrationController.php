@@ -22,7 +22,6 @@ class RegistrationController implements ControllerInterface
 
             if (!empty($login) && !empty($password)) {
                 $this->model->addUser($login, $password);
-                $this->view->setRegistrationCompleted(true); 
             } else {
                 $error = 'Вы не ввели логин или пароль';
                 $this->view->render(['error' => $error]);

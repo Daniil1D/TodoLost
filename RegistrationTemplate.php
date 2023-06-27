@@ -19,7 +19,7 @@
         <p>Пароль:<input type="password" name="password"></p>
         <p><input type="submit" name="go" value="Зарегистрироваться"></p>
     </form>
-    <form method="GET" action="template.php">
+    <form method="GET" action="authorization.php">
         <p><input type="submit" value="Авторизоваться"></p>
     </form>
 </body>

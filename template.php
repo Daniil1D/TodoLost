@@ -67,7 +67,7 @@
                     <?php endif; ?>
                 </tbody>
             </table>
-            <form class="bottom-panel d-flex" method="POST">
+            <form class="bottom-panel d-flex" method="POST" action="index.php">
                 <input type="text" class="form-control new-todo-label" placeholder="What needs to be done?" name="todo" required>
                 <button type="submit" class="btn btn-outline-secondary" name="addTodo">Add</button>
             </form>
